@@ -1,4 +1,4 @@
-package main.java.thinking.threadT;
+package thinking.threadT;
 
 public class Main {
 }

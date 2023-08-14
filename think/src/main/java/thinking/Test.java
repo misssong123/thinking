@@ -1,4 +1,4 @@
-package main.java.thinking;
+package thinking;
 
 public class Test {
     public static void main(String[] args) {

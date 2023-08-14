@@ -1,4 +1,4 @@
-package main.java.thinking.stackdemo;
+package thinking.stackdemo;
 
 import java.util.Stack;
 

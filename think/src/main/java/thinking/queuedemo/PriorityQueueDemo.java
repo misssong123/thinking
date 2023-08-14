@@ -1,4 +1,4 @@
-package main.java.thinking.queuedemo;
+package thinking.queuedemo;
 
 import java.util.PriorityQueue;
 
