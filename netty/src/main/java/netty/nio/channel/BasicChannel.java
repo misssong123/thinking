@@ -1,4 +1,4 @@
-package main.java.netty.nio.channel;
+package netty.nio.channel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.nio.channels.FileChannel;
 
 public class BasicChannel {
     public static void main(String[] args) throws Exception{
-       trans();
+        copyFile();
     }
     public static void write() throws Exception{
         //
@@ -42,27 +42,28 @@ public class BasicChannel {
      * 复制文件
      */
     public static void copyFile() throws Exception{
+        //文件
         FileInputStream fis = new FileInputStream("2.txt");
         FileOutputStream fos = new FileOutputStream("3.txt");
-
-        //获取对应通道
+        //通道
         FileChannel readChannel = fis.getChannel();
         FileChannel writeChannel = fos.getChannel();
-        //构建buffer
-        ByteBuffer buffer = ByteBuffer.allocate(10);
+        //文件读取
+        ByteBuffer buffer = ByteBuffer.allocate(3);
         while (true){
-            buffer.clear();//清理历史遗漏状态
-
-            //读取数据
+            //清除
+            buffer.clear();
             int read = readChannel.read(buffer);
-            if (read == -1){//不存在数据
+            if (read==-1){
                 break;
             }
-            //数据反转
+            //反转
             buffer.flip();
-            //数据写入
+            //文件读取
             writeChannel.write(buffer);
         }
+        readChannel.close();
+        writeChannel.close();
         fis.close();
         fos.close();
     }
