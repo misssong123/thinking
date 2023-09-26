@@ -1,8 +1,15 @@
-package main.java.netty.nio.buffer;
+package netty.nio.buffer;
 
 import java.nio.IntBuffer;
 
 // 1. Buffer的使用
+/**
+ * 四大属性
+ * 1.capacity 容量
+ * 2.limit 限制
+ * 3.position 位置
+ * 4.mark
+ */
 public class BasicBuffer {
     public static void main(String[] args) {
         //1.创建一个buffer
@@ -11,10 +18,11 @@ public class BasicBuffer {
         for (int i = 0 ; i < 10 ; i++){
             buffer.put(i);
         }
+        buffer.flip();//反转
         //3.读取数据
-        buffer.flip();
         while(buffer.hasRemaining()){
             System.out.println(buffer.get());
         }
     }
+
 }
