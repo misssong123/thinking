@@ -1,51 +1,48 @@
-package main.java.netty.bio;
-
+package netty.bio;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class BIOServer {
     public static void main(String[] args) throws Exception{
-        //创建一个线程池
-        //如果有客户端连接，就创建一个线程，与之通讯（单独写一个方法）
-        ExecutorService executors = Executors.newCachedThreadPool();
-        //创建ServerSocket
-        ServerSocket server = new ServerSocket(8888);
-        //处理连接客户端
+        //生成线城池减少开销
+        ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(10,10,3, TimeUnit.SECONDS,new LinkedBlockingDeque<>(100));
+        //创建server,监听888端口号
+        ServerSocket serverSocket = new ServerSocket(888);
+        System.out.println("【888】服务器启动。。。。。。");
         while (true){
-            Socket socket = server.accept();
-            executors.execute(()->{
-                //可以和客户端通讯
-                handler(socket);
-            });
+            //获取链接的socket
+            Socket socket = serverSocket.accept();
+            //处理socket
+            poolExecutor.execute(()->handler(socket));
         }
-
     }
     private static void handler(Socket socket) {
-        //输出当前线程的名字
-        System.out.println("当前线程的名字："+Thread.currentThread().getName());
-        byte[] bytes = new byte[1024] ;
-        while (true){
-            try {
-                //读取数据（阻塞）
-                System.out.println("准备read...");
-                int read = socket.getInputStream().read(bytes);
-                if (read != -1){
-                    System.out.println(new String(bytes,0,read));
-                }else {
+        try {
+            //打印当前的线程信息
+            System.out.println("当前线程【"+Thread.currentThread().getName()+"】开始连接。。。。。。");
+            //初始化接收字节数组
+            byte[] bytes = new byte[1024];
+            //获取socket对应的输入流
+            InputStream inputStream = socket.getInputStream();
+            while (true){
+                int count = inputStream.read(bytes);
+                if (count==-1){
                     break;
                 }
-            }catch (Exception e){
+                System.out.println("【"+Thread.currentThread().getName()+"】:"+new String(bytes,0,count));
+            }
+        }catch (Exception e){
+
+        }finally {
+            System.out.println("当前线程【"+Thread.currentThread().getName()+"】断开连接。。。。。。");
+            try {
+                socket.close();
+            }catch (Exception e) {
                 e.printStackTrace();
-                break;
-            }finally {
-                System.out.println("关闭和client的连接");
-                try {
-                    socket.close();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
             }
         }
     }
