@@ -26,7 +26,7 @@ public class NettyClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new com.atguigu.netty.simple.NettyClientHandler()); //加入自己的处理器
+                            ch.pipeline().addLast(new NettyClientHandler()); //加入自己的处理器
                         }
                     });
 
