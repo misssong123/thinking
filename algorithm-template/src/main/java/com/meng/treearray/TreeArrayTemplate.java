@@ -6,6 +6,12 @@ public class TreeArrayTemplate {
     public static void main(String[] args) {
         int[] nums = {1,3,5,2,4,7};
         NumArray demo = new NumArray(nums);
+        for (int i = 1 ; i <= 6 ; i++){
+            for (int j = i; j <= 5; j += demo.lowbit(j)) {
+                System.out.println(j);
+            }
+            System.out.println("------------------------");
+        }
         demo.update(2,10);
         System.out.println(demo.sumRange(0,2));
         System.out.println(demo.sumRange(3,4));
