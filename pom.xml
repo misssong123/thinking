@@ -23,6 +23,7 @@
     <modules>
         <module>limit</module>
         <module>springdemo</module>
+        <module>algorithm-template</module>
     </modules>
 
     <dependencies>
