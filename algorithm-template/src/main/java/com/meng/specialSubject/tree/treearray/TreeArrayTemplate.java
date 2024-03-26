@@ -1,4 +1,4 @@
-package com.meng.treearray;
+package com.meng.specialSubject.tree.treearray;
 
 import java.util.Arrays;
 
