@@ -74,7 +74,7 @@ public class BinarySearch01 {
     }
 
     /**
-     *  大于等于指定元素的第一个位置,不存在返回-1
+     *  大于指定元素的第一个位置,不存在返回-1
      * @param nums
      * @param val
      * @return
