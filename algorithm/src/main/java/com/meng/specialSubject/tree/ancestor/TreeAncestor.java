@@ -1,4 +1,4 @@
-package com.meng.specialSubject.template.ancestor;
+package com.meng.specialSubject.tree.ancestor;
 
 import java.util.ArrayList;
 import java.util.Arrays;

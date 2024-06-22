@@ -1,4 +1,4 @@
-package com.meng.specialSubject.template.treearray;
+package com.meng.specialSubject.array.treearray;
 
 import java.util.Arrays;
 
@@ -21,6 +21,7 @@ public class TreeArrayTemplate {
 
     }
 }
+
 class NumArray {
     int[] tree;
     int lowbit(int x) {
