@@ -67,14 +67,69 @@ public class BSTree {
         if (current == null){
             return;
         }
-        //情况1：删除的节点没有左节点
-        if (current.left == null ){
-
-        }else if (current.right == null){
-
-        }else {
-
+        if (current == root){//根节点
+            //左右节点为空
+            if (current.left == null && current.right == null){
+                root = null;
+            }//左节点为空
+            else if (current.left == null){
+                root = current.right;
+            }//右节点为空
+            else if (current.right == null){
+                root = current.left;
+            }//左右节点均不为空
+            else {
+                //找到右子树的最小节点
+                Node minCurrent = current.right;
+                Node minParent = current;
+                while (minCurrent.left != null){
+                    minParent = minCurrent;
+                    minCurrent = minCurrent.left;
+                }
+                //替换节点
+                current.val = minCurrent.val;
+                //删除最小节点
+                if (minParent.left == minCurrent){
+                    minParent.left = minCurrent.right;
+                }else {
+                    minParent.right = minCurrent.right;
+                }
+            }
+        }else {//非根节点
+            //情况1：删除的节点没有左节点
+            if (current.left == null ){
+                if (parent.left == current){
+                    parent.left = current.right;
+                }else {
+                    parent.right = current.right;
+                }
+            }//情况2：删除的节点没有右节点
+            else if (current.right == null){
+                if (parent.left == current){
+                    parent.left = current.left;
+                }else {
+                    parent.right = current.left;
+                }
+            }//情况3：删除的节点有左节点和右节点
+            else {
+                //找到右子树的最小节点
+                Node minCurrent = current.right;
+                Node minParent = current;
+                while (minCurrent.left != null){
+                    minParent = minCurrent;
+                    minCurrent = minCurrent.left;
+                }
+                //替换节点
+                current.val = minCurrent.val;
+                //删除最小节点
+                if (minParent.left == minCurrent){
+                    minParent.left = minCurrent.right;
+                }else {
+                    minParent.right = minCurrent.right;
+                }
+            }
         }
+
     }
     //中序遍历
     public void infixOrder(Node root){
@@ -139,14 +194,20 @@ public class BSTree {
         bsTree.insert(4);
         bsTree.insert(7);
         bsTree.insert(13);
-        System.out.println("前序遍历");
-        bsTree.preOrder(bsTree.root);
-        System.out.println();
-        System.out.println("中序遍历");
-        bsTree.infixOrder(bsTree.root);
-        System.out.println();
-        System.out.println("后序遍历");
-        bsTree.postOrder(bsTree.root);
+        bsTree.insert(9);
+        for(int i = 1 ; i < 15 ; i++){
+            bsTree.delete(i);
+            System.out.println("前序遍历");
+            bsTree.preOrder(bsTree.root);
+            System.out.println();
+            System.out.println("中序遍历");
+            bsTree.infixOrder(bsTree.root);
+            System.out.println();
+            System.out.println("后序遍历");
+            bsTree.postOrder(bsTree.root);
+            System.out.println();
+            System.out.println("====================================");
+        }
 
     }
 }
