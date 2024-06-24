@@ -131,6 +131,40 @@ public class BSTree {
         }
 
     }
+    public void deleteProve(int val) {
+        root = deleteNode(root, val);
+    }
+
+    private Node deleteNode(Node root, int val) {
+        if (root == null) {
+            return null;
+        }
+        // 递归寻找待删除的节点
+        if (val < root.val) {
+            root.left = deleteNode(root.left, val);
+        } else if (val > root.val) {
+            root.right = deleteNode(root.right, val);
+        } else {
+            // 找到要删除的节点
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null) {
+                return root.left;
+            }
+            // 找到右子树的最小值节点
+            root.val = findMin(root.right).val;
+            // 删除右子树中的最小值节点
+            root.right = deleteNode(root.right, root.val);
+        }
+        return root;
+    }
+
+    private Node findMin(Node node) {
+        while (node.left != null) {
+            node = node.left;
+        }
+        return node;
+    }
     //中序遍历
     public void infixOrder(Node root){
         if (root == null){
@@ -196,7 +230,7 @@ public class BSTree {
         bsTree.insert(13);
         bsTree.insert(9);
         for(int i = 1 ; i < 15 ; i++){
-            bsTree.delete(i);
+            bsTree.deleteProve(i);
             System.out.println("前序遍历");
             bsTree.preOrder(bsTree.root);
             System.out.println();
