@@ -2,6 +2,10 @@ package com.meng.specialSubject.tree.bstree;
 
 import lombok.Data;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Queue;
+
 public class BSTree {
     //根节点
     private Node root;
@@ -206,15 +210,64 @@ public class BSTree {
     }
     //中序遍历-非递归
     public void infixOrder2(Node root){
-
+        Deque<Node> queue = new ArrayDeque<>();
+        Node temp = root;
+        while (temp != null || !queue.isEmpty()){
+            while (temp !=null){
+                queue.push(temp);
+                temp = temp.left;
+            }
+            temp = queue.pop();
+            System.out.print(temp.getVal() + "-->");
+            temp = temp.right;
+        }
+        System.out.println();
     }
     //前序遍历-非递归
     public void preOrder2(Node root){
-
+        if (root == null){
+            return;
+        }
+        Deque<Node> queue = new ArrayDeque<>();
+        Node temp = root;
+        queue.push(temp);
+        while (!queue.isEmpty()){
+            temp = queue.pop();
+            System.out.print(temp.getVal() + "-->");
+            if (temp.right != null){
+                queue.push(temp.right);
+            }
+            if (temp.left != null){
+                queue.push(temp.left);
+            }
+        }
+        System.out.println();
     }
     //后序遍历-非递归
     public void postOrder2(Node root){
-
+        if (root == null){
+            return;
+        }
+        Deque<Node> queue = new ArrayDeque<>();
+        Node temp = root;
+        Node prev = null;
+        while (temp!= null || !queue.isEmpty()){
+            //寻找最左侧节点
+            while(temp != null){
+                queue.push(temp);
+                temp = temp.left;
+            }
+            temp = queue.peek();
+            if (temp.right == null || temp.right == prev){
+                System.out.print(temp.getVal() + "-->");
+                queue.pop();
+                prev = temp;
+                temp = null;
+            }else{
+                temp = temp.right;
+            }
+        }
+        System.out.println();
     }
 
     public static void main(String[] args) {
@@ -231,15 +284,9 @@ public class BSTree {
         bsTree.insert(9);
         for(int i = 1 ; i < 15 ; i++){
             bsTree.deleteProve(i);
-            System.out.println("前序遍历");
-            bsTree.preOrder(bsTree.root);
-            System.out.println();
-            System.out.println("中序遍历");
-            bsTree.infixOrder(bsTree.root);
-            System.out.println();
-            System.out.println("后序遍历");
             bsTree.postOrder(bsTree.root);
             System.out.println();
+            bsTree.postOrder2(bsTree.root);
             System.out.println("====================================");
         }
 
