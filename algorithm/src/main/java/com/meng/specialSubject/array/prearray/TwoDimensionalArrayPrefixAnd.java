@@ -1,4 +1,4 @@
-package thinking.algorithm;
+package com.meng.specialSubject.array.prearray;
 
 import com.alibaba.fastjson.JSONObject;
 
