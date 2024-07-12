@@ -1,4 +1,4 @@
-package thinking.proxy.cglibdemo;
+package com.example.designpatterns.proxypatten.cglibdemo;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;

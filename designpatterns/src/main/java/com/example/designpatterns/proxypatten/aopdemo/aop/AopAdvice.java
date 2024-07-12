@@ -1,4 +1,4 @@
-package thinking.proxy.aopdemo.aop;
+package com.example.designpatterns.proxypatten.aopdemo.aop;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;

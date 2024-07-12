@@ -1,4 +1,4 @@
-package thinking.proxy.dynamicproxy;
+package com.example.designpatterns.proxypatten.dynamicproxy;
 
 
 public class TV {

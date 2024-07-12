@@ -1,4 +1,4 @@
-package thinking.proxy.staticproxy;
+package com.example.designpatterns.proxypatten.staticproxy;
 
 import java.util.Objects;
 

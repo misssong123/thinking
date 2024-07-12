@@ -1,4 +1,4 @@
-package thinking.proxy.cglibdemo;
+package com.example.designpatterns.proxypatten.cglibdemo;
 public class TVFactoryB {
     public TV produceTV() {
         System.out.println("TVFactoryB produce TV...");

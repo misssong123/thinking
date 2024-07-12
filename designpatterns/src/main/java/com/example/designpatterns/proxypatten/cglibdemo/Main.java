@@ -1,4 +1,4 @@
-package thinking.proxy.cglibdemo;
+package com.example.designpatterns.proxypatten.cglibdemo;
 
 public class Main {
     public static void main(String[] args) {

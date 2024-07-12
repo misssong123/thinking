@@ -1,4 +1,4 @@
-package thinking.proxy.aopdemo.aop;
+package com.example.designpatterns.proxypatten.aopdemo.aop;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

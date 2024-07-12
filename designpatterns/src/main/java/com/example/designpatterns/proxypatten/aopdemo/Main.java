@@ -1,4 +1,4 @@
-package thinking.proxy.aopdemo;
+package com.example.designpatterns.proxypatten.aopdemo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

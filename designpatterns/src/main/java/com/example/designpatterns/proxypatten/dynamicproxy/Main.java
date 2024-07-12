@@ -1,4 +1,4 @@
-package thinking.proxy.dynamicproxy;
+package com.example.designpatterns.proxypatten.dynamicproxy;
 
 public class Main {
     public static void main(String[] args) {
