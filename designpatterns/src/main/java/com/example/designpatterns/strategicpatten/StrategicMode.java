@@ -1,4 +1,4 @@
-package thinking.designpatterns;
+package com.example.designpatterns.strategicpatten;
 
 public class StrategicMode {
     //聚合策略类对象
