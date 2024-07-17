@@ -2,6 +2,8 @@ package thinking.jsondemo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import thinking.jsondemo.obj.FullName;
 
 public class FastJsonDemo {
     public static String bean2Json(Object obj) {
@@ -17,5 +19,10 @@ public class FastJsonDemo {
 
     public static <T> T jsonBean(String jsonStr, Class<T> objClass) {
         return JSON.parseObject(jsonStr, objClass);
+    }
+
+    public static void main(String[] args) {
+        FullName fullName = new FullName("张", "小", "三");
+        System.out.println(JSONObject.toJSONString(fullName, SerializerFeature.QuoteFieldNames));
     }
 }
