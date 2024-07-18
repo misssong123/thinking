@@ -38,4 +38,41 @@ public class Q002CanPartition {
         }
         return cache[max] == max;
     }
+
+    /**
+     * 执行用时分布
+     * 21
+     * ms
+     * 击败
+     * 79.47%
+     * 复杂度分析
+     * 消耗内存分布
+     * 40.96
+     * MB
+     * 击败
+     * 89.88%
+     * @param nums
+     * @return
+     */
+    public boolean canPartition2(int[] nums) {
+        int sum = Arrays.stream(nums).sum();
+        if (sum% 2 != 0){
+            return false;
+        }
+        int max = sum /2 ;
+        boolean[] dp = new boolean[max + 1];
+        dp[0] = true;
+        for(int num : nums){
+            if (num > max){
+                return false;
+            }
+            if (num == max){
+                return true;
+            }
+            for (int j = max; j >= num; j--){
+                dp[j] = dp[j] || dp[j-num];
+            }
+        }
+        return dp[max];
+    }
 }
