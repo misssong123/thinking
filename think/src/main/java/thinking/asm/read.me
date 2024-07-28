@@ -1,0 +1,38 @@
+JavaASM提供了的主要组件包括ClassReader、ClassWriter、ClassVisitor、MethodVIsitor。
+1）ClassReader（类读取器）
+ClassReader用于读取已经存在的类文件的字节码，并以一种结构化的方式提供对类结构的访问。它能够解析类的结构，包括类的字段、方法和注解信息。
+//将类的结构传递给给定的ClassVisitor，flags参数用于指定读取选项
+accept(ClassVisitor classVisitor,int flags)
+2）ClassWriter（类写入器）
+ClassWriter用于生产新的类文件的字节码。你可以通过添加新的字段、方法等，最终生成一个新的类字节码
+//开始访问一个类，指定类的版本、访问标志、类名、泛型签名、父类和实现的接口。
+visit(int version, int access, String name, String signature, String superName, String[] interfaces)
+//开始访问一个方法，指定方法的访问标志、方法名、描述符、泛型签名和可能抛出的异常。
+visitMethod(int access, String name, String descriptor, String signature, String[] exceptions)
+3）ClassVisitor（类访问器）：
+ClassVisitor是一个接口，用于遍历和修改类的结构。你可以自定义一个ClassVisitor，重写其方法，在访问类、方法、字段等时执行你的逻辑。
+//开始访问一个类。
+visit(int version, int access, String name, String signature, String superName, String[] interfaces)
+//开始访问一个方法。
+visitMethod(int access, String name, String descriptor, String signature, String[] exceptions)
+//访问类的字段。
+visitField(int access, String name, String descriptor, String signature, Object value)
+4）MethodVisitor（方法访问器）
+MethodVisitor 类似于 ClassVisitor，但专注于方法级别的访问和修改。你可以在访问方法、局部变量、指令等时插入你的操作。
+//访问方法的代码开始部分。
+visitCode()
+//字段指令是加载或存储对象字段值的指令
+visitFieldInsn(int opcode, String owner, String name,String desc)
+//访问LDC指令。
+visitLdcInsn(Object cst)
+//访问方法调用指令
+visitMethodInsn(int opcode, String owner, String name, String descriptor, boolean isInterface)
+//访问局部变量指令。局部变量指令是加载或存储局部变量值的指令。
+visitVarInsn(int opcode, int var)
+////访问一个无操作指令。
+visitInsn(int opcode)
+//访问该方法的最大堆栈大小和最大局部变量数。
+visitMaxs(int maxStack, int maxLocals)
+//方法结束标识
+visitEnd()
+
