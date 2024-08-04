@@ -9,6 +9,7 @@
 9.Q009maxValueQueue 多重背包问题(单调栈优化)
 10.Q010maxValueFix 混合背包问题
 12.Q012MaxValueGroup 分组背包问题(分组中至多选择一样)
+13.Q013NumRollsToTarget分组背包问题(分组中必须选择一样)
 01背包和完全背包问题的总结:
     01 背包问题的状态转移方程为：dp[i][j] = max(dp[i-1][j],dp[i-1][j-v[i]]+w[i])
 由于计算dp[i][j]的时候，依赖于dp[i-1][j] 。因此我们在改为「一维空间优化」时，需要确保dp[j-v[i]]
