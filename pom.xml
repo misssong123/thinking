@@ -22,9 +22,6 @@
     </build>
     <modules>
         <module>limit</module>
-        <module>springdemo</module>
-        <module>algorithm-template</module>
-        <module>es</module>
         <module>jvmdemo</module>
     </modules>
 
