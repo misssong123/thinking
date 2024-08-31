@@ -14,7 +14,6 @@ public class ThreadLocalDemo {
     public static void main(String[] args) {
         ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(2,2,10L,
                 TimeUnit.SECONDS,new ArrayBlockingQueue<>(3000));
-        //NUM.set(1);
         for(int i = 0 ; i < 10 ; i++){
             poolExecutor.execute(() -> {
                 if (NUM.get() == null){
@@ -32,5 +31,11 @@ public class ThreadLocalDemo {
             });
         }
         poolExecutor.shutdown();
+        new Thread(() -> {
+            NUM.set(1);
+        }).start();
+        new Thread(() -> {
+            NUM.set(1);
+        }).start();
     }
 }

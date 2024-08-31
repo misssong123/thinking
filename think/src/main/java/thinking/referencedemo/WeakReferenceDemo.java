@@ -5,7 +5,12 @@ import java.lang.ref.WeakReference;
 
 public class WeakReferenceDemo {
     public static void main(String[] args) {
-        test2();
+        byte[] bytes = new byte[1024 * 1024 * 2];
+        WeakReference<byte[]> weakReference = new WeakReference<>(bytes);
+        System.out.println(weakReference.get());
+        bytes = null;
+        System.gc();
+        System.out.println(weakReference.get());
     }
     public static void test2() {
         WeakClass[] weakClasses = new WeakClass[10];
