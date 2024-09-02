@@ -31,7 +31,7 @@ public class InheritableThreadLocalDemo {
     }
     public static void main(String[] args) {
         NUM.set(1);
-        test1();
+        test2();
     }
     public static void test2(){
         ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(2,2,10L,
@@ -46,7 +46,7 @@ public class InheritableThreadLocalDemo {
                 }
                 System.out.println("线程:"+Thread.currentThread().getName()+";NUM:"+NUM.get());
                 //移除
-                //NUM.remove();
+                NUM.remove();
             });
         }
         poolExecutor.shutdown();
