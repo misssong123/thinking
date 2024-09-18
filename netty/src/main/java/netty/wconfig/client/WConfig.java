@@ -1,5 +1,6 @@
 package netty.wconfig.client;
 
+import netty.wconfig.client.configs.ClientConfig;
 import netty.wconfig.client.enums.EnumWConfigFileType;
 import org.springframework.context.annotation.Configuration;
 

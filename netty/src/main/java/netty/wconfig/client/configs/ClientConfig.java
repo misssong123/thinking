@@ -1,5 +1,4 @@
 package netty.wconfig.client.configs;
-
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -42,16 +41,12 @@ public class ClientConfig {
 
     private int agentPort2nd = 36530;
 
-    //    @Value("${wconfig.client.secret}")
     private String secret;
 
-    //    @Value("${wconfig.client.group-name}")
     private String groupName = GROUP_NAME_DEFAULT;
 
-    //    @Value("${wconfig.client.local-file-folder}")
     private String localFileFolder = LOCAL_FOLDER_DEFAULT;
 
-    //    @Value("${wconfig.client.local-dev-mode}")
     private boolean localDevMode = false;
 
     private String localDevCluster = "";
