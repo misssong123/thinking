@@ -1,6 +1,7 @@
 package netty.wconfig.client.agentclient.session;
 
 import lombok.extern.slf4j.Slf4j;
+import netty.wconfig.client.agentclient.handlers.ClientInboundHandler;
 import netty.wconfig.client.agentclient.protocol.ClientFrame;
 
 import java.util.concurrent.CountDownLatch;

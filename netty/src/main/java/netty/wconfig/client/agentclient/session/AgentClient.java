@@ -42,8 +42,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 import static netty.wconfig.client.constants.ClientConstants.CONFIG_LOCATOR_DELIMITER;
-import static netty.wconfig.client.enums.EnumSubType.GET;
-import static netty.wconfig.client.enums.EnumSubType.SCHEDULE;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -75,7 +73,7 @@ public class AgentClient implements WConfigAgentClient {
 
     private final Map<String, SubscriptionContext> downTimeSubRecords = new ConcurrentHashMap<>();
 
-    private final Cache</*namespace*/String, /*configs*/ConfigResponse> configCache = CacheBuilder.newBuilder()
+    private final Cache<String, ConfigResponse> configCache = CacheBuilder.newBuilder()
             .expireAfterWrite(6L, TimeUnit.MINUTES)
             .removalListener((RemovalListener<String, ConfigResponse>) notification -> {
                 // 不处理手动移除
