@@ -62,41 +62,20 @@ public class Sort05QuickSort {
         int n = arr.length;
         return quickSelect(arr, 0, n - 1, n - k);
     }
-    public static int quickSelect(int[] arr, int left, int right, int k) {
-        //如果左/右指针相同，直接返回该位置的元素
-       if (left == right){
-           return arr[left];
-       }
-        //选择最右边的元素作为基准值
-        int pivot = arr[right],r = right,l = left;
-        while (left < right){
-            //从左侧选择大于基准值的元素
-            while(left < right && arr[left] < pivot){
-                left++;
-            }
-            //从右侧选择小于基准值的元素
-            while (right > left && arr[right] >= pivot){
-                right--;
-            }
-            if (left != right){
-                int temp = arr[left];
-                arr[left] = arr[right];
-                arr[right] = temp;
+    public static int quickSelect(int[] nums, int l, int r, int k) {
+        if (l == r) return nums[k];
+        int x = nums[l], i = l - 1, j = r + 1;
+        while (i < j) {
+            do i++; while (nums[i] < x);
+            do j--; while (nums[j] > x);
+            if (i < j){
+                int tmp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = tmp;
             }
         }
-        //保证基准值在中间
-        if (left != r){
-            int temp = arr[left];
-            arr[left] = arr[r];
-            arr[r] = temp;
-        }
-        if(left == k){
-            return arr[left];
-        }else if(left > k){
-            return quickSelect(arr,l,left-1,k);
-        }else {
-            return quickSelect(arr,left+1,r,k);
-        }
+        if (k <= j) return quickSelect(nums, l, j, k);
+        else return quickSelect(nums, j + 1, r, k);
     }
 
 }
