@@ -47,5 +47,6 @@ public class ThreadPoolWorkDemo {
         monitor.setDaemon(true);
         monitor.start();
         TimeUnit.SECONDS.sleep(10);
+        executor.shutdown();
     }
 }
