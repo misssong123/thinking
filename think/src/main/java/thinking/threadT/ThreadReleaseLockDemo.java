@@ -78,17 +78,4 @@ public class ThreadReleaseLockDemo {
         thread1.start();
         thread2.start();
     }
-    /**
-     * 阻塞方法
-     */
-    public void test(){
-        synchronized (LOCK){
-            try {
-                System.out.println(Thread.currentThread().getName());
-                TimeUnit.MILLISECONDS.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
 }
