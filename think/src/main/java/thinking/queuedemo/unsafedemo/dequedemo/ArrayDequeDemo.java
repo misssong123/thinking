@@ -13,18 +13,24 @@ import java.util.ArrayDeque;
 public class ArrayDequeDemo {
     public static void main(String[] args) throws Exception{
         ArrayDeque<Integer> deque = new ArrayDeque<>();
-        deque.addFirst(1);
-        deque.addLast(2);
-        deque.addFirst(3);
+        for(int i = 7 ; i >=0 ; i--){
+            deque.addFirst(i);
+        }
+        for (int i = 8 ; i < 15 ; i++){
+            deque.addLast(i);
+        }
         show(deque);
-        System.out.println(deque.removeFirst());
-        System.out.println(deque.removeFirst());
-        System.out.println(deque.removeLast());
-        System.out.println(deque);
+        deque.addLast(15);
     }
     public static void show(ArrayDeque<Integer> deque) throws Exception{
         Field elements = ArrayDeque.class.getDeclaredField("elements");
         elements.setAccessible(true);
         System.out.println(JSONObject.toJSONString(elements.get(deque)));
+        Field head = ArrayDeque.class.getDeclaredField("head");
+        head.setAccessible(true);
+        System.out.println(JSONObject.toJSONString(head.get(deque)));
+        Field tail = ArrayDeque.class.getDeclaredField("tail");
+        tail.setAccessible(true);
+        System.out.println(JSONObject.toJSONString(tail.get(deque)));
     }
 }
