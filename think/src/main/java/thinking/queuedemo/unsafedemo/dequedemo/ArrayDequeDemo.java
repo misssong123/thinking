@@ -19,7 +19,7 @@ public class ArrayDequeDemo {
         show(deque);
         System.out.println(deque.removeFirst());
         System.out.println(deque.removeFirst());
-        System.out.println(deque.removeFirst());
+        System.out.println(deque.removeLast());
         System.out.println(deque);
     }
     public static void show(ArrayDeque<Integer> deque) throws Exception{
