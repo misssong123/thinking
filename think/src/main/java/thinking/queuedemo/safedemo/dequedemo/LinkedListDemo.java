@@ -1,13 +1,10 @@
-package thinking.queuedemo;
+package thinking.queuedemo.safedemo.dequedemo;
 
-import java.util.PriorityQueue;
+import java.util.LinkedList;
 
-/**
- * 查看排序实现
- */
-public class PriorityQueueDemo {
+public class LinkedListDemo {
     public static void main(String[] args) {
-        PriorityQueue<Integer> queue = new PriorityQueue<>();
+        LinkedList<Integer> queue = new LinkedList<>();
         for(int i = 0 ; i < 20 ; i++){
             queue.add((int)(Math.random()*1000));
         }

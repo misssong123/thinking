@@ -1,0 +1,16 @@
+一.选择队列的关键点
+    1.线程安全需求：
+        单线程用 LinkedList/ArrayDeque，多线程用并发队列。
+    2.容量限制：
+        有界队列（如 ArrayBlockingQueue）避免资源耗尽。
+    3.阻塞需求：
+        需要阻塞等待选 BlockingQueue，否则选非阻塞队列。
+    4.排序需求：
+        优先级队列（PriorityQueue/PriorityBlockingQueue）或延迟队列（DelayQueue）。
+    5.性能优化：
+        低竞争用 ConcurrentLinkedQueue，高吞吐用 LinkedBlockingQueue。
+二.示例场景
+    1.任务调度：PriorityBlockingQueue（按优先级处理任务）。
+    2.日志缓冲：LinkedBlockingQueue（高吞吐无界队列）。
+    3.线程池任务传递：SynchronousQueue（直接传递任务）。
+    4.延迟任务：DelayQueue（如订单超时处理）
