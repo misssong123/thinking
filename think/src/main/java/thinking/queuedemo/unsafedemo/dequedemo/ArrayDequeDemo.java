@@ -21,11 +21,13 @@ public class ArrayDequeDemo {
         }
         show(deque);
         deque.addLast(15);
+        show(deque);
     }
     public static void show(ArrayDeque<Integer> deque) throws Exception{
         Field elements = ArrayDeque.class.getDeclaredField("elements");
         elements.setAccessible(true);
         System.out.println(JSONObject.toJSONString(elements.get(deque)));
+        System.out.println(((Object[])( elements.get(deque))).length);
         Field head = ArrayDeque.class.getDeclaredField("head");
         head.setAccessible(true);
         System.out.println(JSONObject.toJSONString(head.get(deque)));
