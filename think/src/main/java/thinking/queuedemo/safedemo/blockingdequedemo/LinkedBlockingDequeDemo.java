@@ -6,6 +6,7 @@ import java.util.concurrent.*;
  * 默认容量为 Integer.MAX_VALUE
  * 不允许 null 元素
  * ReentrantLock 实现
+ * 底层是链表实现
  */
 public class LinkedBlockingDequeDemo {
     public static void main(String[] args) {

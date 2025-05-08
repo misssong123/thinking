@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * 容量：无界
  * 不允许null
  * 遵循 FIFO 原则
+ * 底层是链表实现
  */
 public class ConcurrentLinkedQueueDemo {
     public static void main(String[] args) {
