@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 /**
  * 查看排序实现
  */
-public class PriorityQueueDemo {
+public class PriorityBlockingQueueDemo {
     public static void main(String[] args) {
         PriorityQueue<Integer> queue = new PriorityQueue<>();
         for(int i = 0 ; i < 20 ; i++){
