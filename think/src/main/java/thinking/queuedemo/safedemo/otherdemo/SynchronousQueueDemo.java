@@ -28,8 +28,33 @@ public class SynchronousQueueDemo {
      */
     public static void main(String[] args) throws Exception{
         SynchronousQueue<Integer> queue = new SynchronousQueue<>(true);
-        System.out.println(queue.offer(1));
-        queue.put(1);
+        new Thread(()->{
+            try {
+                queue.put(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+        TimeUnit.MILLISECONDS.sleep(1000);
+        new Thread(()->{
+            try {
+                queue.put(2);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+        TimeUnit.MILLISECONDS.sleep(1000);
+        new Thread(()->{
+            try {
+                queue.put(3);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+        TimeUnit.MILLISECONDS.sleep(1000);
+        while (queue.isEmpty()){
+            System.out.println(queue.take());
+        }
     }
 }
 class SynchronousQueueConsumer implements Runnable {
