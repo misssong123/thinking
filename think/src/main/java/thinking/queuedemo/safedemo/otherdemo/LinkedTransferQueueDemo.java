@@ -29,7 +29,137 @@ public class LinkedTransferQueueDemo {
      * element()：返回队列头部的元素，但不移除。若队列为空，会抛出 NoSuchElementException 异常。
      * peek()：返回队列头部的元素，但不移除。若队列为空，返回 null。
      */
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws Exception{
+        //验证transfer和take方法的执行顺序
+        take1Transfer1();
+    }
+    private static void offer() throws InterruptedException {
+        LinkedTransferQueue<Integer> queue = new LinkedTransferQueue<>();
+        queue.offer(1);
+        queue.offer(2);
+        new Thread(() -> {
+            try {
+                queue.transfer(3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        Thread.sleep(100);
+
+    }
+    private static void transfer1() throws InterruptedException {
+        LinkedTransferQueue<Integer> queue = new LinkedTransferQueue<>();
+        new Thread(() -> {
+            try {
+                queue.transfer(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        Thread.sleep(100);
+
+    }
+    private static void transfer2() throws Exception{
+        LinkedTransferQueue<Integer> queue = new LinkedTransferQueue<>();
+        new Thread(() -> {
+            try {
+                queue.transfer(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        Thread.sleep(100);
+        new Thread(() -> {
+            try {
+                queue.transfer(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+    private static void take1() throws Exception{
+        LinkedTransferQueue<Integer> queue = new LinkedTransferQueue<>();
+        new Thread(() -> {
+            try {
+                queue.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        Thread.sleep(100);
+    }
+    private static void take2() throws Exception{
+        LinkedTransferQueue<Integer> queue = new LinkedTransferQueue<>();
+        new Thread(() -> {
+            try {
+                queue.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        Thread.sleep(100);
+        new Thread(() -> {
+            try {
+                queue.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+    private static void transfer1Take1() throws Exception{
+        LinkedTransferQueue<Integer> queue = new LinkedTransferQueue<>();
+        new Thread(() -> {
+            try {
+                queue.transfer(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        Thread.sleep(100);
+        new Thread(() -> {
+            try {
+                queue.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+    private static void take1Transfer1() throws Exception{
+        LinkedTransferQueue<Integer> queue = new LinkedTransferQueue<>();
+        new Thread(() -> {
+            try {
+                queue.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        Thread.sleep(100);
+        new Thread(() -> {
+            try {
+                queue.transfer(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        Thread.sleep(100);
+        new Thread(() -> {
+            try {
+                queue.take();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        Thread.sleep(100);
+        new Thread(() -> {
+            try {
+                queue.transfer(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+        Thread.sleep(100);
+    }
+    private static void test() {
         LinkedTransferQueue<Integer> queue = new LinkedTransferQueue<>();
         // 向队列中添加元素
         queue.offer(1);
