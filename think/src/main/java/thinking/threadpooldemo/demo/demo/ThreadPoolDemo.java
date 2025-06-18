@@ -1,17 +1,16 @@
-package thinking.threadpooldemo;
+package thinking.threadpooldemo.demo.demo;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class ThreadPoolDemo {
     static ThreadPoolExecutor executor = new ThreadPoolExecutor(2,5,10,
             TimeUnit.SECONDS,
             new ArrayBlockingQueue<>(5),
+            Executors.defaultThreadFactory(),
             new ThreadPoolExecutor.DiscardPolicy());
     public static void main(String[] args) throws Exception {
         //1.创建核心为5的线程池
-        for(int i = 0 ; i < 10 ; i ++){
+        for(int i = 1 ; i <= 10 ; i ++){
             int finalI = i;
             executor.execute(()->{
                 System.out.println(Thread.currentThread().getName()+"("+ finalI +")"+" is running");
