@@ -24,9 +24,9 @@ public class DelayQueueDemo {
     public static void main(String[] args) {
         DelayQueue<DelayDemo> queue = new DelayQueue<>();
         // 向队列中添加元素
-        queue.offer(new DelayDemo(1000));
-        queue.offer(new DelayDemo(2000));
         queue.offer(new DelayDemo(3000));
+        queue.offer(new DelayDemo(2000));
+        queue.offer(new DelayDemo(1000));
         // 从队列中取出元素
         new Thread(() -> {
             while(!queue.isEmpty()){
