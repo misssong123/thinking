@@ -1,5 +1,8 @@
 package thinking.threadpooldemo.demo.demo;
 
+/**
+ * 标签demo
+ */
 public class BreakLabelDemo {
     public static void main(String[] args) {
         retry:
