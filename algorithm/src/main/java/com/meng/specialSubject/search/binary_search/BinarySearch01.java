@@ -91,4 +91,46 @@ public class BinarySearch01 {
         }
         return left==nums.length?-1:left;
     }
+    /**
+     * 查询指定元素首次出现的位置，未存在返回首个大于指定元素的下标
+     * @param nums 非递减数组
+     * @param target 目标元素
+     * @return 首次出现位置或首个大于目标元素的下标
+     */
+    public static int findFirstOccurrence(int[] nums, int target) {
+        int l = 0 ,r = nums.length -1 , res = nums.length;
+        while (l <= r){
+            int mid = l + (r - l) / 2;
+            if (nums[mid] >= target){
+                res = mid;
+                r = mid - 1;
+            }else {
+                l = mid + 1;
+            }
+        }
+        return res;
+    }
+
+    /**
+     * b. 查询指定元素最后出现的位置，未存在返回首个大于指定元素的下标
+     * @param nums 非递减数组
+     * @param target 目标元素
+     * @return 最后出现位置或首个大于目标元素的下标
+     */
+    public static int findLastOccurrence(int[] nums, int target) {
+        int l = 0 , r = nums.length -1 , res = nums.length;
+        while (l <= r){
+            int mid = l + (r - l) / 2;
+            if(nums[mid] > target){
+                res = mid;
+                r = mid - 1;
+            }else{
+                l = mid + 1;
+            }
+        }
+        if (res > 0 && nums[res - 1] == target){
+            res--;
+        }
+        return res;
+    }
 }
