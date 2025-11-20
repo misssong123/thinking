@@ -50,7 +50,23 @@ public class Sort04ShellSort {
             h /= 3; // 下一个间隔
         }
     }
-
+    public void shellSortOptimized(int[] arr){
+        int n = arr.length;
+        int step = 1;
+        while (step < n/3) step = 3*step + 1; // 1, 4, 13, 40, ...
+        while (step >= 1){
+            for(int i = step; i < n; i++){
+                int num = arr[i];
+                int j = i;
+                while (j >= step && arr[j-step] > num){
+                    arr[j] = arr[j-step];
+                    j -= step;
+                }
+                arr[j] = num;
+            }
+            step /= 3;
+        }
+    }
     public static void main(String[] args) {
         int[] arr = {9,8,7,6,5,4,3,2,1};
         shellSort(arr);

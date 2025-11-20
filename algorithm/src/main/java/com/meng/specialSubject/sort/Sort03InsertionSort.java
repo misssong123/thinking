@@ -29,7 +29,17 @@ public class Sort03InsertionSort {
         }
         return low;
     }
-
+    public void insertSort(int[] arr){
+        for(int i = 1 ; i < arr.length ; i++){
+            int num = arr[i];
+            int index = i - 1;
+            while (index >= 0 && arr[index] > num){
+                arr[index+1] = arr[index];
+                index--;
+            }
+            arr[index+1] = num;
+        }
+    }
     public static void main(String[] args) {
         int[] arr = {5, 3, 8, 4, 2};
         insertionSort(arr);
