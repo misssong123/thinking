@@ -50,6 +50,36 @@ public class Sort06HeapSort {
             heapify(arr, n, largest);
         }
     }
+    //堆排序
+    public void heapSortOther(int[] arr){
+        //构建大顶堆
+        for(int i = (arr.length -1) /2 ; i >= 0 ; i--){
+            judgeHeapOther(arr,i,arr.length);
+        }
+        //交换顶堆元素
+        for(int i = arr.length -1 ; i > 0 ; i--){
+            int temp = arr[i];
+            arr[i] = arr[0];
+            arr[0] = temp;
+            judgeHeapOther(arr,0,i);
+        }
+    }
+
+    private void judgeHeapOther(int[] arr, int parent, int end) {
+        int temp = arr[parent];
+        for (int child = 2 * parent + 1 ; child < end ; child = 2 * child + 1) {
+            if (child + 1 < end && arr[child] < arr[child + 1]) {
+                child++;
+            }
+            if(temp < arr[child]){
+                arr[parent] = arr[child];
+                parent = child;
+            }else {
+                break;
+            }
+        }
+        arr[parent] = temp;
+    }
     public static void main(String[] args) {
         int[] arr = {12, 11, 13, 5, 6, 7,1,2,3,4,5,4,3,2,1,5,5,55,53};
         heapSort(arr);

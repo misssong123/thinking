@@ -1,7 +1,4 @@
 package com.meng.specialSubject.sort;
-
-import java.util.Arrays;
-
 /**
  * 以下是快速排序的基本步骤：
  * 1.选择基准值（Pivot）：从数组中选择一个元素作为基准值。基准值的选择方法有多种，
@@ -51,6 +48,40 @@ public class Sort05QuickSort {
         return left;
     }
 
+    //快速排序
+    public void quickSortOther(int[] arr){
+        quickSortOther(arr,0,arr.length -1);
+    }
+
+    private void quickSortOther(int[] arr, int start, int end) {
+        if (start >= end){
+            return;
+        }
+        int target = arr[start];
+        int l = start;
+        int r = end;
+        while (l < r){
+            //从右侧找比target小的元素
+            while(r > l && arr[r] >= target){
+                r--;
+            }
+            //从左侧找比target大的元素
+            while (l < r && arr[l] <= target){
+                l++;
+            }
+            if (l < r){
+                int temp = arr[l];
+                arr[l] = arr[r];
+                arr[r] = temp;
+            }
+        }
+        // 将基准值放到正确位置
+        arr[start] = arr[l];
+        arr[l] = target;
+
+        quickSortOther(arr,start,l - 1);
+        quickSortOther(arr,l + 1,end);
+    }
     public static void main(String[] args) {
         int[] arr = {3,2,1,5,6,4};
         int k = 2;
