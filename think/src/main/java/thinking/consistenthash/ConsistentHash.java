@@ -1,4 +1,7 @@
 package thinking.consistenthash;
+import thinking.consistenthash.util.MigrationResult;
+import thinking.consistenthash.util.StatsCollector;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -106,42 +109,6 @@ public class ConsistentHash<T> {
     // 统计信息
     private final StatsCollector stats = new StatsCollector();
 
-    /**
-     * 统计收集器
-     */
-    public static class StatsCollector {
-        private int totalRequests = 0;
-        private int migrationCount = 0;
-        private final Map<String, Integer> migrationStats = new HashMap<>();
-
-        public void recordRequest() {
-            totalRequests++;
-        }
-
-        public void recordMigration(String from, String to) {
-            migrationCount++;
-            String key = from + "->" + to;
-            migrationStats.put(key, migrationStats.getOrDefault(key, 0) + 1);
-        }
-
-        public void printStats() {
-            System.out.println("\n=== 统计信息 ===");
-            System.out.println("总请求数: " + totalRequests);
-            System.out.println("总迁移次数: " + migrationCount);
-            System.out.println("迁移率: " +
-                    (totalRequests > 0 ? String.format("%.2f%%", migrationCount * 100.0 / totalRequests) : "0%"));
-
-            if (!migrationStats.isEmpty()) {
-                System.out.println("\n迁移分布:");
-                migrationStats.entrySet().stream()
-                        .sorted((a, b) -> b.getValue().compareTo(a.getValue()))
-                        .forEach(entry ->
-                                System.out.println("  " + entry.getKey() + ": " + entry.getValue())
-                        );
-            }
-        }
-    }
-
     // 构造函数
     public ConsistentHash(HashFunction hashFunction, int virtualNodesPerPhysicalNode) {
         this.hashFunction = hashFunction;
@@ -187,7 +154,6 @@ public class ConsistentHash<T> {
 
         physicalToVirtual.put(node, virtualNodes);
         stats.recordRequest();
-
         // 输出节点分布
         printNodeDistribution();
     }
@@ -238,33 +204,17 @@ public class ConsistentHash<T> {
     /**
      * 获取数据对应的节点（带迁移检测）
      */
-    public synchronized MigrationResult getNodeWithMigrationCheck(String key, T previousNode) {
+    public synchronized MigrationResult<T> getNodeWithMigrationCheck(String key, T previousNode) {
         T currentNode = getNode(key);
 
         if (previousNode != null && !previousNode.equals(currentNode)) {
             stats.recordMigration(previousNode.toString(), currentNode.toString());
-            return new MigrationResult(currentNode, true, previousNode, currentNode);
+            return new MigrationResult<T>(currentNode, true, previousNode, currentNode);
         }
 
-        return new MigrationResult(currentNode, false, previousNode, currentNode);
+        return new MigrationResult<T>(currentNode, false, previousNode, currentNode);
     }
 
-    /**
-     * 迁移结果
-     */
-    public class MigrationResult {
-        public final T node;
-        public final boolean migrated;
-        public final T fromNode;
-        public final T toNode;
-
-        MigrationResult(T node, boolean migrated, T fromNode, T toNode) {
-            this.node = node;
-            this.migrated = migrated;
-            this.fromNode = fromNode;
-            this.toNode = toNode;
-        }
-    }
 
     /**
      * 获取所有物理节点

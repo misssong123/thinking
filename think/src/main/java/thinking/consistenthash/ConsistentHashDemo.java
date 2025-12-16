@@ -1,5 +1,8 @@
 package thinking.consistenthash;
 
+import thinking.consistenthash.util.DataRecord;
+import thinking.consistenthash.util.TableNode;
+
 import java.util.*;
 
 /**
@@ -95,7 +98,7 @@ public class ConsistentHashDemo {
     private static void verifyDataConsistency(ShardingTableManager manager) {
         System.out.println("验证数据一致性...");
 
-        ConsistentHash<ShardingTableManager.TableNode> hash = manager.getConsistentHash();
+        ConsistentHash<TableNode> hash = manager.getConsistentHash();
         int errors = 0;
         int checked = 0;
 
@@ -105,12 +108,12 @@ public class ConsistentHashDemo {
             int randomId = random.nextInt(1500);
             String id = "user_" + String.format("%08d", randomId);
 
-            ShardingTableManager.DataRecord record = manager.getData(id);
+            DataRecord record = manager.getData(id);
             if (record != null) {
                 checked++;
 
                 // 验证数据是否在正确的表上
-                ShardingTableManager.TableNode expectedTable = hash.getNode(id);
+                TableNode expectedTable = hash.getNode(id);
                 if (!record.getCurrentNode().equals(expectedTable)) {
                     System.err.println("数据不一致: " + id);
                     System.err.println("  当前表: " + record.getCurrentNode());
@@ -129,7 +132,7 @@ public class ConsistentHashDemo {
     private static void performanceTest(ShardingTableManager manager) {
         System.out.println("性能测试: 10000次查找操作");
 
-        ConsistentHash<ShardingTableManager.TableNode> hash = manager.getConsistentHash();
+        ConsistentHash<TableNode> hash = manager.getConsistentHash();
         Random random = new Random();
 
         long startTime = System.currentTimeMillis();

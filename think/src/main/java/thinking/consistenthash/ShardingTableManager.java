@@ -1,4 +1,8 @@
 package thinking.consistenthash;
+import lombok.Getter;
+import thinking.consistenthash.util.DataRecord;
+import thinking.consistenthash.util.TableNode;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -7,94 +11,17 @@ import java.util.stream.Collectors;
  * 分表管理器
  */
 public class ShardingTableManager {
-
-    // 表节点
-    public static class TableNode {
-        private final String tableName;
-        private final int index;
-        private final String description;
-
-        public TableNode(String tableName, int index) {
-            this.tableName = tableName;
-            this.index = index;
-            this.description = "表" + index + "(" + tableName + ")";
-        }
-
-        public String getTableName() {
-            return tableName;
-        }
-
-        public int getIndex() {
-            return index;
-        }
-
-        @Override
-        public String toString() {
-            return description;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            TableNode tableNode = (TableNode) o;
-            return index == tableNode.index &&
-                    Objects.equals(tableName, tableNode.tableName);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(tableName, index);
-        }
-    }
-
-    // 数据记录
-    public static class DataRecord {
-        private final String id;
-        private final String data;
-        private TableNode currentNode;
-        private TableNode previousNode;
-        private final long createTime;
-        private long updateTime;
-
-        public DataRecord(String id, String data, TableNode node) {
-            this.id = id;
-            this.data = data;
-            this.currentNode = node;
-            this.previousNode = node;
-            this.createTime = System.currentTimeMillis();
-            this.updateTime = createTime;
-        }
-
-        public void updateNode(TableNode newNode) {
-            this.previousNode = this.currentNode;
-            this.currentNode = newNode;
-            this.updateTime = System.currentTimeMillis();
-        }
-
-        public String getId() { return id; }
-        public String getData() { return data; }
-        public TableNode getCurrentNode() { return currentNode; }
-        public TableNode getPreviousNode() { return previousNode; }
-
-        @Override
-        public String toString() {
-            return "DataRecord{" +
-                    "id='" + id + '\'' +
-                    ", table=" + currentNode +
-                    (previousNode != null && !previousNode.equals(currentNode) ?
-                            " (从" + previousNode + "迁移)" : "") +
-                    '}';
-        }
-    }
-
+    /**
+     * -- GETTER --
+     *  获取一致性Hash实例
+     */
+    @Getter
     private final ConsistentHash<TableNode> consistentHash;
     private final Map<String, DataRecord> dataStore = new ConcurrentHashMap<>();
     private final Map<TableNode, List<DataRecord>> tableData = new ConcurrentHashMap<>();
 
     private final int virtualNodesPerTable;
     private final ConsistentHash.HashFunction hashFunction;
-
     // 迁移监听器
     private final List<MigrationListener> migrationListeners = new ArrayList<>();
 
@@ -474,10 +401,4 @@ public class ShardingTableManager {
         consistentHash.getStats().printStats();
     }
 
-    /**
-     * 获取一致性Hash实例
-     */
-    public ConsistentHash<TableNode> getConsistentHash() {
-        return consistentHash;
-    }
 }
